@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import react,{useState,useRef } from 'react';
+import styled from 'styled-components';
+import Navbar from "./components/Navbar";
+import {BrowserRouter as Router , Switch , Route}
+from 'react-router-dom';
+import { GlobalStyle } from "./components/GlobalStyles";
+import Dropdown from "./components/dropDown";
+import Hero from './components/hero';
+import Feature from './components/features';
+import InfoSection from './components/infos';
+import { first_info,second_info,third_info } from './components/infos/infos_data';
+import Pricing from './components/pricing';
+import Footer from './components/footer';
 
+const Smooth = styled.div``;
+ 
 function App() {
+
+  const [isOpen , setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  }  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div id="smooth">
+        <GlobalStyle/>
+        <Navbar toggle={toggle} />
+        <Dropdown isOpen={isOpen} toggle={toggle}/>
+        <Hero/>
+        <Feature/>
+        <InfoSection {...first_info}/>
+        <InfoSection {...second_info}/>
+        <InfoSection {...third_info}/>
+        <div className="bottom-bg">
+          <Pricing/>
+          <Footer/>
+        </div>
+      </div>
+    </Router>
   );
 }
 
